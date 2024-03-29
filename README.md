@@ -4,7 +4,7 @@ This repository contains the necessary files to run **secured** privileged Cloud
 
 ## Prerequisites
 
-- An OpenShift cluster with bare metal worker nodes.
+- An OpenShift cluster with bare metal worker nodes (c.f. [install-config.yaml](openshift-install/install-config.yaml))
 - OpenShift Sandboxed Containers Operator installed.
 - Eclipse Che Operator installed
 
