@@ -1,4 +1,4 @@
-# Running privileges Eclipse Che CDEs on Kubernetes using Kata Containers
+# Running secured and privileged CDEs on Kubernetes using Kata Containers
 
 This repository contains the necessary files to run **secured** privileged Cloud Development Environments on Kubernetes using Kata Containers.
 
