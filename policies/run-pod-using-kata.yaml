@@ -12,7 +12,7 @@ spec:
               kinds:
                 - Pod
               namespaces:
-                - mario-che
+                - <namespace>
       mutate:
         patchStrategicMerge:
           spec:
