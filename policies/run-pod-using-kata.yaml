@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: run-pod-using-kata
+spec:
+  admission: true
+  background: false
+  rules:
+    - match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - mario-che
+      mutate:
+        patchStrategicMerge:
+          spec:
+            +(runtimeClassName): kata
+      name: Run pods in specific namespace using Kata containers runtime
+      skipBackgroundRequests: true
+  validationFailureAction: Audit
