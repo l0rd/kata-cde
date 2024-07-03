@@ -6,9 +6,6 @@ Cloud Development Environments on Kubernetes using
 
 <img width="1719" alt="image" src="https://github.com/l0rd/kata-cde/assets/606959/2211ea81-c9a8-4e59-a993-cfffec8bb5cf">
 
-<img width="1719" alt="image" src="https://github.com/l0rd/kata-cde/assets/606959/2211ea81-c9a8-4e59-a993-cfffec8bb5cf">
-
-
 ## Prerequisites
 
 - A cluster running OpenShift v4.15 or later on bare metal worker nodes with at least
