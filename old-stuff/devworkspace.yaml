@@ -1,0 +1,27 @@
+kind: DevWorkspace
+apiVersion: workspace.devfile.io/v1alpha2
+metadata:
+  name: dw
+spec:
+  routingClass: che
+  started: true
+  template:
+    attributes:
+      controller.devfile.io/storage-type: ephemeral
+      controller.devfile.io/runtime-class: kata
+      controller.devfile.io/devworkspace-config:
+        name: devworkspace-config
+        namespace: eclipse-che
+      # controller.devfile.io/scc: container-build
+      # controller.devfile.io/storage-type: per-user
+      # controller.devfile.io/use-starter-project: go-starter
+    components:
+      - name: dev-tooling
+        container:
+          image: quay.io/devfile/universal-developer-image:ubi8-latest
+          memoryLimit: 4096Mi
+          cpuLimit: "1"
+  contributions:
+    - name: editor
+      kubernetes:
+        name: editor

@@ -4,51 +4,32 @@ This repository contains the necessary files to run **secured** privileged Cloud
 
 ## Prerequisites
 
-- An OpenShift cluster with bare metal worker nodes (c.f. [install-config.yaml](openshift-install/install-config.yaml))
-- OpenShift Sandboxed Containers Operator installed and `KataConfig` CR created
+- An OpenShift cluster v4.16 or later with bare metal worker nodes (c.f. [install-config.yaml](ocp-install/install-config.yaml)) and a [regular user](ocp-install/add-regular-user.sh)
+- OpenShift Sandboxed Containers Operator installed and a `KataConfig` CR created
+(c.f. [install-ocp-sandbox-operator.sh](ocp-sandbox-operator/install-ocp-sandbox-operator.sh))
 - Eclipse Che Operator installed and `CheCluster` CR created in `eclipse-che` namespace
+(c.f. [install-eclipse-che-operator.sh](eclipse-che-operator/install-eclipse-che-operator.sh))
 - [Kyverno installed](https://kyverno.io/docs/installation/methods/):
   - `helm repo add kyverno https://kyverno.github.io/kyverno/ && helm repo update`
   - `helm install kyverno kyverno/kyverno -n kyverno --create-namespace --set replicaCount=1`
 
-## Eclipse Che Configuration
+## Procedure
 
-Configure Che to:
+1. Login to Che using a regular user <-- This creates the `<user>-che` namespace
+2. Apply a [Kyverno policy](policies/run-priv-pod-using-kata.yaml)  <-- This allow running privileged Pods using Kata runtime in `<user>-che` namespace
+3. Create the privileged SA [privsa.yaml](policies/privsa.yaml) and rolebinding [privsa-rb.yaml](policies/privsa-rb.yaml) in `<user>-che` namespace.  <-- This is the privileged SA that Che will use to start the CDEs
+4. Patch the CheCluster CR with [patch-checluster.sh](eclipse-che-operator/patch-checluster.sh) to use the privileged SA `privsa` for CDEs Pods
+5. Start a workspace using a Devfile with a `pod-overrides` spec as in as the one in `.devfile.yaml`
 
-- Use the privileged udi image `TODO` as default container image.
-- Use a privileged SA for CDEs Pods?
-- Use the following securityContext spec for CDEs Pod:
-
-```yaml
-TODO
-```
-
-## Kyverno Policy
-
-Add policy to run pods a developer specific namespace using Kata containers runtime:
+## Verification steps
 
 ```bash
-kubectl apply -f - <<EOF apiVersion: kyverno.io/v1
-kind: ClusterPolicy
-metadata:
-  name: run-pod-using-kata
-spec:
-  background: false
-  rules:
-  - name: "Run pods in specific namespace using Kata containers runtime"
-    match:
-      any:
-      - resources:
-          kinds:
-          - Pod
-          namespaces:
-          - mario-che
-    mutate:
-      patchStrategicMerge:
-        spec:
-          +(runtimeClassName): kata
-EOF
+POD="workspace25b1397e11e2478f-c587f877f-swbrf"
+kgp -n mario-che $POD -o json | jq '.spec.runtimeClassName'               # <-- should be `kata`
+kgp -n mario-che $POD -o json | jq '.spec.serviceAccount'                 # <-- should be `privsa`
+kgp -n mario-che $POD -o json | jq '.spec.containers[].securityContext'   # <-- should be privileged etc...
 ```
 
-- Create the privileged SA `./policies/privsa.yaml` and rolebing `./policies/privsa-rb.yaml` in developers namespaces.
-- Create Kyverno cluster policy `./policies/run-pod-using-kata.yaml` to developers namespaces.
+## Security Consideration
+
+Trying to run a privileged Pod without kata runtime should fail (last examples in [ocp-sandbox-operator/test.sh])

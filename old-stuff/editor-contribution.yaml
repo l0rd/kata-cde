@@ -1,0 +1,56 @@
+apiVersion: workspace.devfile.io/v1alpha2
+kind: DevWorkspaceTemplate
+metadata:
+  name: editor
+spec:
+  components:
+    - name: editor-injector
+      container:
+        image: quay.io/che-incubator/che-code:insiders
+        command:
+          - /entrypoint-init-container.sh
+        volumeMounts:
+          - name: checode
+            path: /checode
+        memoryLimit: 512Mi
+        memoryRequest: 32Mi
+        cpuLimit: 500m
+        cpuRequest: 30m
+    - name: editor-runtime-description
+      attributes:
+        controller.devfile.io/container-contribution: true
+      container:
+        image: noop/will/be/ignored
+        volumeMounts:
+          - name: checode
+            path: /checode
+        memoryLimit: 1024Mi
+        memoryRequest: 256Mi
+        cpuLimit: 1000m
+        cpuRequest: 30m
+        endpoints:
+          - name: che-code
+            attributes:
+              type: main
+              cookiesAuthEnabled: true
+              discoverable: false
+              urlRewriteSupported: true
+            targetPort: 3100
+            exposure: public
+            secure: false
+            protocol: https
+    - name: checode
+      volume: { ephemeral: true }
+  events:
+    preStart:
+      - init-container-command
+    postStart:
+      - inject-and-start-editor
+  commands:
+    - id: init-container-command
+      apply:
+        component: editor-injector
+    - id: inject-and-start-editor
+      exec:
+        component: editor-runtime-description
+        commandLine: "nohup /checode/entrypoint-volume.sh > /checode/entrypoint-logs.txt 2>&1 &"
