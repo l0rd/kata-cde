@@ -2,6 +2,9 @@
 
 This repository contains the necessary files to run **secured** privileged Cloud Development Environments on Kubernetes using Kata Containers.
 
+<img width="1719" alt="image" src="https://github.com/l0rd/kata-cde/assets/606959/2211ea81-c9a8-4e59-a993-cfffec8bb5cf">
+
+
 ## Prerequisites
 
 - An OpenShift cluster v4.16 or later with bare metal worker nodes (c.f. [install-config.yaml](ocp-install/install-config.yaml)) and a [regular user](ocp-install/add-regular-user.sh)
