@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-privileged-sa
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: check-privileged-sa-use-kata
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - $(DEVELOPER_NAMESPACE)
+      validate:
+        message: "Pods with serviceAccountName: privileged-sa must use kata runtimeClassName"
+        anyPattern:
+          - spec:
+              serviceAccountName: "privileged-sa"
+              runtimeClassName: "kata"

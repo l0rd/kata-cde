@@ -1,7 +1,7 @@
 kind: DevWorkspace
 apiVersion: workspace.devfile.io/v1alpha2
 metadata:
-  name: dw
+  name: privileged-cde
 spec:
   routingClass: che
   started: true
@@ -12,13 +12,17 @@ spec:
       controller.devfile.io/devworkspace-config:
         name: devworkspace-config
         namespace: eclipse-che
-      # controller.devfile.io/scc: container-build
-      # controller.devfile.io/storage-type: per-user
-      # controller.devfile.io/use-starter-project: go-starter
+      pod-overrides:
+        {
+          "metadata":
+            { "annotations": { "io.kubernetes.cri-o.Devices": "/dev/fuse" } },
+        }
     components:
       - name: dev-tooling
         container:
-          image: quay.io/devfile/universal-developer-image:ubi8-latest
+          image: quay.io/podman/stable
+          command: ["sleep"]
+          args: ["infinity"]
           memoryLimit: 4096Mi
           cpuLimit: "1"
   contributions:
