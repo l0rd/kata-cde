@@ -90,7 +90,7 @@ sleep 30
 
 start=$(date +%s)
 echo "Waiting for the eclipse-che operator to apply the CR (this usually takes 5 minutes)"
-while [[ $(kubectl get checluster eclipse-che -n eclipse-che -o jsonpath='{.status.chePhase}') != "Activez" ]]; do
+while [[ $(kubectl get checluster eclipse-che -n eclipse-che -o jsonpath='{.status.chePhase}') != "Active" ]]; do
   sleep 1
   time="$(($(gdate +%s) - $start))"
   printf '%s\r' "$(gdate -u -d "@$time" +%H:%M:%S)"
