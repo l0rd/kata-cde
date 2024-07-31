@@ -41,7 +41,7 @@ export NS="<user>-che"
 
 # Create the namespace, the privileged service account, and the Kyverno policy
 envsubst < configuration/resources/kustomization.yaml | sponge configuration/resources/kustomization.yaml
-kubectl apply -k ./policies/resources
+kubectl apply -k ./configuration/resources
 
 # Configure Che
 ./configuration/configure-che.sh
