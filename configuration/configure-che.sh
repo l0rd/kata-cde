@@ -2,7 +2,8 @@
 
 set -o errexit -o nounset -o pipefail
 
-CHECLUSTER_NAMESPACE=${CHECLUSTER_NAMESPACE:-eclipse-che}
+CHECLUSTER_NAMESPACE=${CHECLUSTER_NAMESPACE:-openshift-devspaces}
+CHECLUSTER_NAME=${CHECLUSTER_NAME:-devspaces}
 
 echo "Patching CheCluster to disable container build capabilities"
 
@@ -12,7 +13,7 @@ PATCH+='"security":{"containerSecurityContext":{"privileged": true,"allowPrivile
 PATCH+='"serviceAccount":"privileged-sa",'
 PATCH+='"workspacesPodAnnotations":{"io.kubernetes.cri-o.Devices":"/dev/fuse"}'
 PATCH+='}}}'
-kubectl patch checluster eclipse-che \
+kubectl patch checluster ${CHECLUSTER_NAME} \
     --type=merge -p \
     "${PATCH}" \
     -n ${CHECLUSTER_NAMESPACE}

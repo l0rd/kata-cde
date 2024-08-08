@@ -31,7 +31,6 @@ spec:
   name: sandboxed-containers-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: sandboxed-containers-operator.v1.6.0
 EOF
 
 echo -n "Waiting for the sandboxed-containers-operator csv resource to be created"

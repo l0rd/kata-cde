@@ -13,14 +13,14 @@ a non-admin user (c.f. OpenShift sample [install-config.yaml](prerequisites/inst
 and [a script to add a non-admin user](prerequisites/add-regular-user.sh)).
 - [OpenShift Sandboxed Containers Operator](https://github.com/openshift/sandboxed-containers-operator)
 (c.f. [install-ocp-sandbox-operator.sh](prerequisites/install-ocp-sandbox-operator.sh))
-- [Eclipse Che Operator](https://github.com/eclipse-che/che-operator)
-(c.f. [install-eclipse-che-operator.sh](prerequisites/install-eclipse-che-operator.sh))
+- [OpenShift Dev Spaces Operator](https://github.com/redhat-developer/devspaces)
+(c.f. [install-ocp-dev-spaces-operator.sh](prerequisites/install-ocp-dev-spaces-operator.sh))
 - [Kyverno](https://kyverno.io/docs/installation/methods/)
 (c.f. [install-kyverno.sh](prerequisites/install-kyverno.sh))
 
 ## Procedure
 
-1. Create the developer namespace `<user>-che` if it doesn't exist yet
+1. Create the developer namespace `<user>-devspaces` if it doesn't exist yet
 2. Apply a [Kyverno policy](configuration/resources/privileged-sa-use-kata-policy.yaml) - *This
 allows running privileged Pods, using Kata runtime, in `<user>-che` namespace*
 3. Create the privileged ServiceAccount, [privileged-sa](configuration/resources/privileged-sa.yaml), and
@@ -37,7 +37,7 @@ These steps can be executed using the following commands after cloning this repo
 
 ```bash
 # Set the namespace name
-export NS="<user>-che"
+export NS="<user>-devspaces"
 
 # Create the namespace, the privileged service account, and the Kyverno policy
 envsubst < configuration/resources/kustomization.yaml | sponge configuration/resources/kustomization.yaml
