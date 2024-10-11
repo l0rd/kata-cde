@@ -1,7 +1,7 @@
 # Secured, Privileged CDEs with Kata Containers
 
 This repository contains the necessary files to run **privileged 🚀** but **secured 🔒**
-Cloud Development Environments on Kubernetes using
+Cloud Development Environments on OpenShift using
 [Kata Containers](https://katacontainers.io).
 
 <img width="1719" alt="image" src="https://github.com/l0rd/kata-cde/assets/606959/2211ea81-c9a8-4e59-a993-cfffec8bb5cf">
@@ -25,8 +25,8 @@ and [a script to add a non-admin user](prerequisites/add-regular-user.sh)).
 allows running privileged Pods, using Kata runtime, in `<user>-che` namespace*
 3. Create the privileged ServiceAccount, [privileged-sa](configuration/resources/privileged-sa.yaml), and
 RoleBinding, [privileged-rb](configuration/resources/privileged-rb.yaml), in `<user>-che` namespace.
-4. Configure Che with
-[configure-che.sh](configuration/configure-che.sh) so that Che
+4. Configure OpenShift Dev Spaces with
+[configure-ocp-dev-spaces.sh](configuration/configure-ocp-dev-spaces.sh) so that Dev Spaces
 uses the SA `privileged-sa` for CDEs Pods.
 5. Start a workspace using a DevWorkspace that uses the following `spec.template.attributes`:
 `controller.devfile.io/runtime-class: kata` and
@@ -43,8 +43,8 @@ export NS="<user>-devspaces"
 envsubst < configuration/resources/kustomization.yaml | sponge configuration/resources/kustomization.yaml
 kubectl apply -k ./configuration/resources
 
-# Configure Che
-./configuration/configure-che.sh
+# Configure OpenShift Dev Spaces
+./configuration/configure-ocp-dev-spaces.sh
 
 # Start a workspace that uses VS Code
 kubectl apply -f ./tests/vscode.yaml -n $NS
