@@ -11,7 +11,7 @@ spec:
       controller.devfile.io/runtime-class: kata
       controller.devfile.io/devworkspace-config:
         name: devworkspace-config
-        namespace: eclipse-che
+        namespace: openshift-devspaces
       pod-overrides:
         {
           "metadata":
