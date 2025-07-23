@@ -9,7 +9,7 @@ Cloud Development Environments on OpenShift using
 ## Prerequisites
 
 - A cluster running OpenShift v4.15 or later on bare metal worker nodes with at least
-a non-admin user (c.f. OpenShift sample [install-config.yaml](prerequisites/install-config.yaml)
+a non-admin user (c.f. OpenShift sample [ocp-install-config.yaml](prerequisites/ocp-install-config.yaml)
 and [a script to add a non-admin user](prerequisites/add-regular-user.sh)).
 - [OpenShift Sandboxed Containers Operator](https://github.com/openshift/sandboxed-containers-operator)
 (c.f. [install-ocp-sandbox-operator.sh](prerequisites/install-ocp-sandbox-operator.sh))
