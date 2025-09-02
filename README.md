@@ -11,6 +11,10 @@ Cloud Development Environments on OpenShift using
 - A cluster running OpenShift v4.15 or later on bare metal worker nodes with at least
 a non-admin user (c.f. OpenShift sample [ocp-install-config.yaml](prerequisites/ocp-install-config.yaml)
 and [a script to add a non-admin user](prerequisites/add-regular-user.sh)).
+
+> [!TIP]
+> Alternatively, a cluster with bare metal worker nodes can be provisioned via Cluster Bot, e.g. `launch 4.20 metal,ovn` and accessed by following the [Metalkube and Bare-Metal deployments Access](https://github.com/openshift/ci-chat-bot/blob/main/docs/FAQ.md#metalkube-and-bare-metal-deployments-access) instructions.
+
 - [OpenShift Sandboxed Containers Operator](https://github.com/openshift/sandboxed-containers-operator)
 (c.f. [install-ocp-sandbox-operator.sh](prerequisites/install-ocp-sandbox-operator.sh))
 - [OpenShift Dev Spaces Operator](https://github.com/redhat-developer/devspaces)
