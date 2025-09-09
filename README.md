@@ -1,3 +1,5 @@
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com#https://github.com/l0rd/kata-cde)
+
 # Secured, Privileged CDEs with Kata Containers
 
 This repository contains the necessary files to run **privileged 🚀** but **secured 🔒**
