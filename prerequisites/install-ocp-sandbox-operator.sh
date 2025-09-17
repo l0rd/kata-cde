@@ -64,7 +64,7 @@ EOF
 sleep 30
 
 start=$(date +%s)
-echo "Waiting for the sandboxed-containers-operator to apply the CR (this usually take one hour)..."
+echo "Waiting for the sandboxed-containers-operator to apply the CR (this usually takes ~ 15 minutes)..."
 while kubectl get kataconfig example-kataconfig -n openshift-sandboxed-containers-operator -o json | jq -e '.status.kataNodes | (.nodeCount != .readyNodeCount)' > /dev/null; do
   sleep 1
   time="$(($(gdate +%s) - $start))"
