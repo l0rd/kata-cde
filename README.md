@@ -82,6 +82,6 @@ running it with kata (i.e. inside a VM,
 - [x] Remove hard-coded namespace and user
 - [x] Use a minimal set of capabilities to make dnf and podman run work
 - [x] Use a simple DevWorkspace to start a workspace
-- [ ] Avoid adding annotation and runtimeclass in the DevWorkspace/Devfile (issues
+- [x] Avoid adding annotation and runtimeclass in the DevWorkspace/Devfile (issues
 [1](https://issues.redhat.com/browse/CRW-6550) and [2](https://github.com/eclipse-che/che/issues/23032))
 - [ ] Change the sample to use a modified version of UDI that works with root and podman run
