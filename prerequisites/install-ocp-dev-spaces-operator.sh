@@ -89,7 +89,7 @@ EOF
 sleep 30
 
 start=$(date +%s)
-echo "Waiting for the dev spaces operator to apply the CR (this usually takes 5 minutes)"
+echo "Waiting for the dev spaces operator to apply the CR (this usually takes few minutes)"
 while [[ $(kubectl get checluster devspaces -n openshift-devspaces -o jsonpath='{.status.chePhase}') != "Active" ]]; do
   sleep 1
   time="$(($(gdate +%s) - $start))"
